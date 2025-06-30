@@ -1,7 +1,6 @@
 import { Box, Container, Grid, Typography, styled } from "@mui/material"
 import { AnimatedBackground } from "../../../../components/AnimatedBackground/AnimatedBackground"
 import Typewriter from "../../../../components/Typewriter/Typewriter"
-import Avatar from "../../../../assets/images/avatar.jpg"
 import DownloadIcon from '@mui/icons-material/Download';
 import EmailIcon from '@mui/icons-material/Email';
 import StyledButton from "../../../../components/StyledButton/StyledButton";
@@ -67,7 +66,7 @@ const HeroSection: React.FC = () => {
                                     <AnimatedBackground />
                                 </Box>
                                 <Box textAlign="center">
-                                    <StyledImg src={Avatar} />
+                                    <StyledImg src="/avatar.jpg" />
                                 </Box>
                             </Box>
                         </Grid>
