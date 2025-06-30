@@ -1,6 +1,7 @@
 import { Box, Card, Container, Grid, Typography, styled } from "@mui/material"
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import SchoolIcon from '@mui/icons-material/School';
+import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import AnimationComponent from "../../../../components/AnimationComponent/AnimationComponent";
 
 const AboutSection: React.FC = () => {
@@ -15,7 +16,7 @@ const AboutSection: React.FC = () => {
     }));
 
     const skillsSet = [
-        "Javascript", "Typescript", "React", "Next", "Git", "HTML", "CSS", "Cypress", "AWS", "GCP", "Material UI", "Figma"
+        "Javascript", "Typescript", "React", "Next", "Git", "HTML", "CSS", "Laravel", "AWS", "Python", "Material UI", "NODE JS"
     ]
 
     return (
@@ -45,16 +46,28 @@ const AboutSection: React.FC = () => {
                                 <Typography textAlign="center">Mechanical Engineering</Typography>
                             </StyledCard>
                         </AnimationComponent>
-
+                    </Grid>
+                    <Grid item xs={9} md={2.5}>
+                        <AnimationComponent moveDirection="right">
+                            <StyledCard variant="outlined">
+                                <EmojiObjectsIcon />
+                                <Typography textAlign="center" fontWeight={600}>Innovation</Typography>
+                                <Typography textAlign="center">Bridging physical</Typography>
+                                <Typography textAlign="center">engineering with</Typography>
+                                <Typography textAlign="center">digital solutions</Typography>
+                            </StyledCard>
+                        </AnimationComponent>
                     </Grid>
                 </Grid>
                 <Box pb={1}>
                     <Typography>
-                        Olá, mundo!
-                        <br />
-                        Meu nome é Pedro e atualmente sou estudante universitário de engenharia na Universidade Federal de Viçosa.
+                        Hello! I'm Pedro, better known as @SkinerBold on the internet.
                         <br /><br />
-                        Como programador apaixonado e estudante universitário comprometido com a tecnologia, trabalho dia após dia tentando conciliar e aproximar nosso mundo físico do mundo digital.
+                        I'm a Mechanical Engineering student at the Federal University of Viçosa and a Full Stack developer with over 3 years of experience. My passion for technology led me to dive into the programming world, where I found a unique way to connect the physical world of engineering with the digital universe.
+                        <br /><br />
+                        As a programmer, I have experience in both front-end and back-end development, constantly working to create solutions that make a difference. I believe technology has the power to transform ideas into reality, and that's what motivates me every day to keep learning and evolving.
+                        <br /><br />
+                        When I'm not coding or studying, I enjoy exploring new technologies and thinking about how I can use my knowledge to solve real problems and positively impact people's lives.
                     </Typography>
                 </Box>
                 <hr />
