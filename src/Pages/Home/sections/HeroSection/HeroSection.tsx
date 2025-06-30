@@ -48,7 +48,7 @@ const HeroSection: React.FC = () => {
     };
 
     const handleEmail = () => {
-        const emailAddress = 'example@example.com';
+        const emailAddress = 'skinerbold@gmail.com';
         const subject = 'Subject';
         const body = 'Hello! I saw your portfolio...';
 
@@ -72,10 +72,15 @@ const HeroSection: React.FC = () => {
                             </Box>
                         </Grid>
                         <Grid item xs={12} md={7}>
-                            <Typography color="primary.contrastText" variant="h1" pb={2} textAlign="center">
+                            <Typography color="primary.contrastText" variant="h1" pb={1} textAlign="center">
                                 Pedro Mendes
                             </Typography>
-                            <Typewriter text="I'm a Software Engineer" delay={120} variant="h2" color="primary.contrastText" />
+                            <Typography color="primary.contrastText" variant="h5" textAlign="center" sx={{ opacity: 0.8, fontWeight: 300 }}>
+                                @SkinerBold
+                            </Typography>
+                            <Box mt={4}>
+                                <Typewriter text="I'm a Full Stack Developer" delay={120} variant="h2" color="primary.contrastText" />
+                            </Box>
                             <Box mt={3}>
                                 <Grid container spacing={3} display="flex" justifyContent="center">
                                     <Grid item xs={10} md={4}>
