@@ -12,20 +12,20 @@ const ProjectsSection: React.FC = () => {
     const projects = [
         {
             title: "Calculadora de Rendimento Universitário",
-            subtitle: "Jul 2023 - Dez 2023",
+            subtitle: "Abril 2025 - hoje",
             srcImg: "/project1.png",
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras porta semper velit vel rutrum. Aliquam vulputate, nisi eget tristique mattis, nisi sem faucibus eros, a auctor felis sem ut mauris. Phasellus a ultrices elit. Curabitur ut diam eu orci auctor pretium.",
             technologies: "Technologies: JavaScript, HTML, CSS, Canvas Graphics",
-            websiteURL: "https://trello.com/",
+            websiteURL: "https://cruniversitario.vercel.app",
             codeURL: "https://github.com/",
         },
         {
             title: "Signal Forge",
-            subtitle: "Jul 2023 - Dez 2023",
+            subtitle: "Jul 2024 - Dez 2024",
             srcImg: "/project2.png",
             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras porta semper velit vel rutrum. Aliquam vulputate, nisi eget tristique mattis, nisi sem faucibus eros, a auctor felis sem ut mauris. Phasellus a ultrices elit. Curabitur ut diam eu orci auctor pretium.",
             technologies: "Technologies: JavaScript, HTML, CSS, Canvas Graphics",
-            websiteURL: "https://trello.com/",
+            websiteURL: "https://signalforge.streamlit.app",
             codeURL: "https://github.com/",
         },
         {
