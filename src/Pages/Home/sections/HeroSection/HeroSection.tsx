@@ -63,7 +63,7 @@ export default function HeroSection() {
         </p>
 
         <p className="hero__tagline">
-          Bridging physical engineering with digital solutions.
+          Bridging mechanical engineering with digital solutions.
           Building modern, performant web experiences.
         </p>
 
