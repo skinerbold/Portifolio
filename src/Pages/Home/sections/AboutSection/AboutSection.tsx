@@ -1,93 +1,74 @@
-import { Box, Card, Container, Grid, Typography, styled } from "@mui/material"
-import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-import SchoolIcon from '@mui/icons-material/School';
-import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
-import AnimationComponent from "../../../../components/AnimationComponent/AnimationComponent";
+import { useScrollReveal } from '../../../../hooks/useScrollReveal'
 
-const AboutSection: React.FC = () => {
+export default function AboutSection() {
+  const header = useScrollReveal<HTMLDivElement>()
+  const text1 = useScrollReveal<HTMLParagraphElement>()
+  const text2 = useScrollReveal<HTMLParagraphElement>()
+  const cards = useScrollReveal<HTMLDivElement>()
 
-    const StyledCard = styled(Card)(({ theme }) => ({
-        padding: "10px 10px",
-        textAlign: "center",
-        marginBottom: "10px",
-        '&:hover': {
-            backgroundColor: theme.palette.secondary.light
-        }
-    }));
+  const aboutCards = [
+    {
+      icon: '🏆',
+      title: 'Experience',
+      text: 'More than 3 years of front-end and back-end systems development',
+    },
+    {
+      icon: '🎓',
+      title: 'Education',
+      text: 'Undergraduate in Mechanical Engineering at UFV',
+    },
+    {
+      icon: '💡',
+      title: 'Innovation',
+      text: 'Bridging physical engineering with digital solutions',
+    },
+    {
+      icon: '🚀',
+      title: 'Passion',
+      text: 'Turning ideas into reality through modern web technologies',
+    },
+  ]
 
-    const skillsSet = [
-        "Javascript", "Typescript", "React", "Next", "Git", "HTML", "CSS", "Laravel", "AWS", "Python", "Material UI", "NODE JS"
-    ]
+  return (
+    <section className="about" id="about">
+      <div className="container">
+        <div ref={header.ref} className={`reveal ${header.isVisible ? 'visible' : ''}`} style={{ textAlign: 'center', marginBottom: '64px' }}>
+          <p className="section-label">About Me</p>
+          <h2 className="section-title">
+            Crafting digital <span className="gradient-text">experiences</span>
+          </h2>
+        </div>
 
-    return (
-        <>
-            <Container maxWidth="lg">
-                <Box id="about" pt={5} mb={3}>
-                    <Typography variant="h2" textAlign="center" >About me</Typography>
-                </Box>
-                <Grid container spacing={2} display="flex" justifyContent="center" pb={3}>
-                    <Grid item xs={9} md={2.5}>
-                        <AnimationComponent moveDirection="right">
-                            <StyledCard variant="outlined">
-                                <WorkspacePremiumIcon />
-                                <Typography textAlign="center" fontWeight={600}>Experience</Typography>
-                                <Typography textAlign="center">More than 3 years of</Typography>
-                                <Typography textAlign="center">front-end and back-end</Typography>
-                                <Typography textAlign="center">systems development</Typography>
-                            </StyledCard>
-                        </AnimationComponent>
-                    </Grid>
-                    <Grid item xs={9} md={2.5}>
-                        <AnimationComponent moveDirection="left">
-                            <StyledCard variant="outlined">
-                                <SchoolIcon />
-                                <Typography textAlign="center" fontWeight={600}>Education</Typography>
-                                <Typography textAlign="center">Undergraduate in</Typography>
-                                <Typography textAlign="center">Mechanical Engineering</Typography>
-                            </StyledCard>
-                        </AnimationComponent>
-                    </Grid>
-                    <Grid item xs={9} md={2.5}>
-                        <AnimationComponent moveDirection="right">
-                            <StyledCard variant="outlined">
-                                <EmojiObjectsIcon />
-                                <Typography textAlign="center" fontWeight={600}>Innovation</Typography>
-                                <Typography textAlign="center">Bridging physical</Typography>
-                                <Typography textAlign="center">engineering with</Typography>
-                                <Typography textAlign="center">digital solutions</Typography>
-                            </StyledCard>
-                        </AnimationComponent>
-                    </Grid>
-                </Grid>
-                <Box pb={1}>
-                    <Typography>
-                        Hello! I'm Pedro, better known as @SkinerBold on the internet.
-                        <br /><br />
-                        I'm a Mechanical Engineering student at the Federal University of Viçosa and a Full Stack developer with over 3 years of experience. My passion for technology led me to dive into the programming world, where I found a unique way to connect the physical world of engineering with the digital universe.
-                        <br /><br />
-                        As a programmer, I have experience in both front-end and back-end development, constantly working to create solutions that make a difference. I believe technology has the power to transform ideas into reality, and that's what motivates me every day to keep learning and evolving.
-                        <br /><br />
-                        When I'm not coding or studying, I enjoy exploring new technologies and thinking about how I can use my knowledge to solve real problems and positively impact people's lives.
-                    </Typography>
-                </Box>
-                <hr />
-                <Box id="skills" pt={1} mb={3}>
-                    <Typography variant="h3" textAlign="center" fontWeight={300}>Skills</Typography>
-                </Box>
-                <Box mb={5}>
-                    <Grid container spacing={3} justifyContent="center">
-                        {skillsSet.map((skill, index) => (
-                            <Grid item key={index} xs={5} sm={4} md={2} lg={2}>
-                                <StyledCard variant="outlined">
-                                    {skill}
-                                </StyledCard>
-                            </Grid>
-                        ))}
-                    </Grid>
-                </Box>
-            </Container>
-        </>
-    )
+        <div className="about__grid">
+          <div className="about__text">
+            <p ref={text1.ref} className={`reveal ${text1.isVisible ? 'visible' : ''}`}>
+              Hello! I'm Pedro, better known as <strong>@SkinerBold</strong> on the internet. 
+              I'm a Mechanical Engineering student at the Federal University of Viçosa and a 
+              Full Stack developer with over 3 years of experience.
+            </p>
+            <p ref={text2.ref} className={`reveal ${text2.isVisible ? 'visible' : ''} delay-2`}>
+              My passion for technology led me to dive into the programming world, 
+              where I found a unique way to connect the physical world of engineering 
+              with the digital universe. I'm constantly working to create solutions 
+              that make a difference and positively impact people's lives.
+            </p>
+          </div>
+
+          <div ref={cards.ref} className={`about__cards ${cards.isVisible ? 'cards-visible' : ''}`}>
+            {aboutCards.map((card, i) => (
+              <div
+                key={card.title}
+                className={`about__card reveal ${cards.isVisible ? 'visible' : ''}`}
+                style={{ transitionDelay: `${i * 0.1 + 0.2}s` }}
+              >
+                <div className="about__card-icon">{card.icon}</div>
+                <div className="about__card-title">{card.title}</div>
+                <div className="about__card-text">{card.text}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
-
-export default AboutSection

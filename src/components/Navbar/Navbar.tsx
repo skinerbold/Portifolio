@@ -1,105 +1,53 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import { styled } from '@mui/material';
-
-export const StyledNavLink = styled("a")(() => ({
-    textDecoration: "none",
-    color: "inherit"
-}));
-
-export const StyledMobileToolbar = styled(Toolbar)(({ theme }) => ({
-    [theme.breakpoints.up('xs')]: {
-        display: "flex",
-        justifyContent: "end"
-    },
-    [theme.breakpoints.up('md')]: {
-        display: "none",
-    },
-}));
-
-export const StyledDesktopToolbar = styled(Toolbar)(({ theme }) => ({
-    [theme.breakpoints.up('xs')]: {
-        display: "none",
-    },
-    [theme.breakpoints.up('md')]: {
-        display: "flex",
-        justifyContent: "space-evenly",
-    },
-}));
+import { useState, useEffect } from 'react'
 
 export default function Navbar() {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
-    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+  const scrollTo = (id: string) => {
+    setMobileOpen(false)
+    const el = document.getElementById(id)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
-    const handleSmoothScroll = (id: string) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-            handleClose();
-        }
-    };
+  return (
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+      <div className="navbar__inner">
+        <a href="#" className="navbar__logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          PM<span className="gradient-text">.</span>
+        </a>
 
-    return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="absolute">
-                <StyledMobileToolbar>
-                    <IconButton
-                        size="large"
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={handleMenu}
-                        color="inherit"
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorEl}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                    >
-                        <MenuItem onClick={() => handleSmoothScroll("about")}>
-                            <StyledNavLink>About</StyledNavLink>
-                        </MenuItem>
-                        <MenuItem onClick={() => handleSmoothScroll("skills")}>
-                            <StyledNavLink>Skills</StyledNavLink>
-                        </MenuItem>
-                        <MenuItem onClick={() => handleSmoothScroll("projects")}>
-                            <StyledNavLink>Projects</StyledNavLink>
-                        </MenuItem>
-                    </Menu>
-                </StyledMobileToolbar>
-                <StyledDesktopToolbar variant="regular">
-                    <MenuItem onClick={() => handleSmoothScroll("about")}>
-                        <StyledNavLink>About</StyledNavLink>
-                    </MenuItem>
-                    <MenuItem onClick={() => handleSmoothScroll("skills")}>
-                        <StyledNavLink>Skills</StyledNavLink>
-                    </MenuItem>
-                    <MenuItem onClick={() => handleSmoothScroll("projects")}>
-                        <StyledNavLink>Projects</StyledNavLink>
-                    </MenuItem>
-                </StyledDesktopToolbar>
-            </AppBar>
-        </Box >
-    );
+        <div className="navbar__links">
+          <button className="navbar__link" onClick={() => scrollTo('about')}>About</button>
+          <button className="navbar__link" onClick={() => scrollTo('skills')}>Skills</button>
+          <button className="navbar__link" onClick={() => scrollTo('projects')}>Projects</button>
+          <button className="navbar__link" onClick={() => scrollTo('footer')}>Contact</button>
+        </div>
+
+        <div
+          className={`navbar__mobile-toggle ${mobileOpen ? 'open' : ''}`}
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
+          <span /><span /><span />
+        </div>
+      </div>
+
+      <div className={`navbar__mobile-menu ${mobileOpen ? 'open' : ''}`}>
+        <button onClick={() => scrollTo('about')}>About</button>
+        <button onClick={() => scrollTo('skills')}>Skills</button>
+        <button onClick={() => scrollTo('projects')}>Projects</button>
+        <button onClick={() => scrollTo('footer')}>Contact</button>
+      </div>
+    </nav>
+  )
 }

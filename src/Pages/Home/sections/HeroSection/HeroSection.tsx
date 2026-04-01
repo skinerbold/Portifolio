@@ -1,111 +1,95 @@
-import { Box, Container, Grid, Typography, styled } from "@mui/material"
-import { AnimatedBackground } from "../../../../components/AnimatedBackground/AnimatedBackground"
-import Typewriter from "../../../../components/Typewriter/Typewriter"
-import DownloadIcon from '@mui/icons-material/Download';
-import EmailIcon from '@mui/icons-material/Email';
-import StyledButton from "../../../../components/StyledButton/StyledButton";
-import CV from "../../../../assets/pdfs/Open.pdf"
+import { useEffect, useState } from 'react'
 
-const HeroSection: React.FC = () => {
+export default function HeroSection() {
+  const roles = [
+    'Full Stack Developer',
+    'React Specialist',
+    'Python Engineer',
+    'UI/UX Enthusiast',
+  ]
+  const [roleIndex, setRoleIndex] = useState(0)
+  const [charIndex, setCharIndex] = useState(0)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [displayText, setDisplayText] = useState('')
 
-    const StyledImg = styled("img")(({ theme }) => ({
-        width: "80%",
-        border: `1px solid ${theme.palette.primary.contrastText}`,
-        borderRadius: "50%",
-        position: "relative"
-    }));
+  useEffect(() => {
+    const currentRole = roles[roleIndex]
 
-    const StyledHero = styled("div")(({ theme }) => ({
-        backgroundColor: theme.palette.primary.main,
-        width: "100%",
-        [theme.breakpoints.up('xs')]: {
-            display: "block",
-            padding: "20px",
-            paddingTop: "100px",
-            paddingBottom: "40px",
-        },
-        [theme.breakpoints.up('md')]: {
-            display: "flex",
-            alignItems: "center",
-            paddingTop: "100px",
-            height: "100vh"
-        },
-    }));
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        setDisplayText(currentRole.slice(0, charIndex + 1))
+        setCharIndex(charIndex + 1)
+        if (charIndex + 1 === currentRole.length) {
+          setTimeout(() => setIsDeleting(true), 2000)
+        }
+      } else {
+        setDisplayText(currentRole.slice(0, charIndex - 1))
+        setCharIndex(charIndex - 1)
+        if (charIndex - 1 === 0) {
+          setIsDeleting(false)
+          setRoleIndex((roleIndex + 1) % roles.length)
+        }
+      }
+    }, isDeleting ? 50 : 100)
 
-    const handleDownload = () => {
-        console.log("download")
-        // Create a link element
-        const link = document.createElement('a');
-        link.href = CV
-        link.download = 'example.pdf'; // Set the download attribute to specify the file name
-        // Append the link to the body
-        document.body.appendChild(link);
-        // Trigger the click event
-        link.click();
-        // Remove the link from the body
-        document.body.removeChild(link);
-    };
+    return () => clearTimeout(timeout)
+  }, [charIndex, isDeleting, roleIndex])
 
-    const handleEmail = () => {
-        const emailAddress = 'skinerbold@gmail.com';
-        const subject = 'Subject';
-        const body = 'Hello! I saw your portfolio...';
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
 
-        const mailtoLink = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        window.open(mailtoLink);
-    }
+  return (
+    <section className="hero" id="hero">
+      <div className="hero__bg-grid" />
+      <div className="hero__glow hero__glow--blue" />
+      <div className="hero__glow hero__glow--purple" />
 
-    return (
-        <>
-            <StyledHero>
-                <Container maxWidth="lg">
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} md={5}>
-                            <Box position="relative" pb={3}>
-                                <Box width={"150%"} position="absolute" top={-100} right={0}>
-                                    <AnimatedBackground />
-                                </Box>
-                                <Box textAlign="center">
-                                    <StyledImg src="/avatar.jpg" />
-                                </Box>
-                            </Box>
-                        </Grid>
-                        <Grid item xs={12} md={7}>
-                            <Typography color="primary.contrastText" variant="h1" pb={1} textAlign="center">
-                                Pedro Mendes
-                            </Typography>
-                            <Typography color="primary.contrastText" variant="h5" textAlign="center" sx={{ opacity: 0.8, fontWeight: 300 }}>
-                                @SkinerBold
-                            </Typography>
-                            <Box mt={4}>
-                                <Typewriter text="I'm a Full Stack Developer" delay={120} variant="h2" color="primary.contrastText" />
-                            </Box>
-                            <Box mt={3}>
-                                <Grid container spacing={3} display="flex" justifyContent="center">
-                                    <Grid item xs={10} md={4}>
-                                        <StyledButton onClick={() => handleDownload()}>
-                                            <DownloadIcon />
-                                            <Typography>
-                                                Download CV
-                                            </Typography>
-                                        </StyledButton>
-                                    </Grid>
-                                    <Grid item xs={10} md={4}>
-                                        <StyledButton onClick={() => handleEmail()}>
-                                            <EmailIcon />
-                                            <Typography>
-                                                Contact me
-                                            </Typography>
-                                        </StyledButton>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </Grid>
-                    </Grid>
-                </Container>
-            </StyledHero>
-        </>
-    )
+      <div className="hero__content">
+        <div className="hero__avatar-wrapper">
+          <div className="hero__avatar-ring" />
+          <img src="/avatar.jpg" alt="Pedro Mendes" className="hero__avatar" />
+        </div>
+
+        <p className="hero__greeting">Hello, I'm</p>
+
+        <h1 className="hero__name">
+          Pedro <span className="gradient-text">Mendes</span>
+        </h1>
+
+        <p className="hero__role">
+          <span className="hero__typewriter">{displayText}</span>
+        </p>
+
+        <p className="hero__tagline">
+          Bridging physical engineering with digital solutions.
+          Building modern, performant web experiences.
+        </p>
+
+        <div className="hero__cta-group">
+          <button className="btn-primary" onClick={() => scrollTo('projects')}>
+            View Projects
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M7 17L17 7M17 7H7M17 7V17" />
+            </svg>
+          </button>
+          <button className="btn-secondary" onClick={() => window.open('mailto:skinerbold@gmail.com')}>
+            Contact Me
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div className="hero__scroll-indicator">
+        <span>Scroll</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 5v14M19 12l-7 7-7-7" />
+        </svg>
+      </div>
+    </section>
+  )
 }
-
-export default HeroSection
