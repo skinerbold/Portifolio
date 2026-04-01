@@ -20,7 +20,7 @@ export default function AboutSection() {
     {
       icon: '💡',
       title: 'Innovation',
-      text: 'Bridging physical engineering with digital solutions',
+      text: 'Bridging mechanical engineering with digital solutions',
     },
     {
       icon: '🚀',
@@ -42,14 +42,14 @@ export default function AboutSection() {
         <div className="about__grid">
           <div className="about__text">
             <p ref={text1.ref} className={`reveal ${text1.isVisible ? 'visible' : ''}`}>
-              Hello! I'm Pedro, better known as <strong>@SkinerBold</strong> on the internet. 
-              I'm a Mechanical Engineering student at the Federal University of Viçosa and a 
+              Hello! I'm Pedro, better known as <strong>@SkinerBold</strong> on the internet.
+              I'm a Mechanical Engineering student at the Federal University of Viçosa and a
               Full Stack developer with over 3 years of experience.
             </p>
             <p ref={text2.ref} className={`reveal ${text2.isVisible ? 'visible' : ''} delay-2`}>
-              My passion for technology led me to dive into the programming world, 
-              where I found a unique way to connect the physical world of engineering 
-              with the digital universe. I'm constantly working to create solutions 
+              My passion for technology led me to dive into the programming world,
+              where I found a unique way to connect the physical world of engineering
+              with the digital universe. I'm constantly working to create solutions
               that make a difference and positively impact people's lives.
             </p>
           </div>
