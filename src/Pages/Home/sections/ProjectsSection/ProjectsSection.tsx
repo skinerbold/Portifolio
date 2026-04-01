@@ -55,6 +55,15 @@ const ProjectsSection: React.FC = () => {
             websiteURL: "https://krambeck.netlify.app",
             codeURL: "",
         },
+        {
+            title: "Portal Profª Ana Fonseca",
+            subtitle: "Abril 2026",
+            srcImg: "/project6.png",
+            description: "Um portal digital completo e personalizado desenvolvido para centralizar e compartilhar conteúdos especializados em Sociologia e Libras. O projeto integra um portfólio profissional de alto nível com um sistema dinâmico de postagens, permitindo que a professora publique e organize seus materiais didáticos de forma totalmente independente através de um painel administrativo intuitivo.",
+            technologies: "Technologies: React, TypeScript, HTML5, CSS3, SQL",
+            websiteURL: "https://profanafonseca.netlify.app/",
+            codeURL: "",
+        },
     ]
 
     return (
