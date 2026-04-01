@@ -20,13 +20,13 @@ const projects: Project[] = [
     websiteURL: 'https://cruniversitario.vercel.app',
   },
   {
-    title: 'Signal Forge',
-    subtitle: 'Jul 2024 — Dez 2024',
-    srcImg: '/project2.png',
+    title: 'Plataforma Professor Krambeek',
+    subtitle: 'Abril 2026',
+    srcImg: '/project5.png',
     description:
-      'SignalForge é uma ferramenta web em Python (Streamlit) para análise de sinais e sistemas, com suporte aos domínios do tempo e da frequência. Oferece gráficos interativos, cálculos simbólicos e recursos como transformadas de Laplace, diagramas de Bode, análise de polos/zeros e ferramentas auxiliares.',
-    technologies: ['Python', 'Streamlit', 'JavaScript', 'HTML', 'CSS'],
-    websiteURL: 'https://signalforge.streamlit.app',
+      'A plataforma Krambeek se forma como uma landing page profissional, feita para mostrar o trabalho do professor com intuito de divulgação e atração de novos alunos.',
+    technologies: ['Vite', 'TypeScript', 'React', 'shadcn-ui', 'Tailwind CSS'],
+    websiteURL: 'https://krambeck.netlify.app',
   },
   {
     title: 'Plataforma Educacional',
@@ -38,24 +38,6 @@ const projects: Project[] = [
     websiteURL: 'https://pedromendes.github.io/ironhack-project1-craze-maze/index.html',
   },
   {
-    title: 'Analisador Bombas d\'água',
-    subtitle: '2024',
-    srcImg: '/project4.png',
-    description:
-      'Python, interface gráfica (GUI), processamento e extração de dados de imagens, análise numérica de curvas hidráulicas, aplicação de cálculos de engenharia (como interseções e leis de afinidade) e geração automatizada de relatórios em Excel.',
-    technologies: ['Python', 'GUI', 'Data Analysis'],
-    websiteURL: 'https://github.com/skinerbold/Graficos_Bomba_d-agua',
-  },
-  {
-    title: 'Plataforma Professor Krambeek',
-    subtitle: 'Abril 2026',
-    srcImg: '/project5.png',
-    description:
-      'A plataforma Krambeek se forma como uma landing page profissional, feita para mostrar o trabalho do professor com intuito de divulgação e atração de novos alunos.',
-    technologies: ['Vite', 'TypeScript', 'React', 'shadcn-ui', 'Tailwind CSS'],
-    websiteURL: 'https://krambeck.netlify.app',
-  },
-  {
     title: 'Portal Profª Ana Fonseca',
     subtitle: 'Abril 2026',
     srcImg: '/project6.png',
@@ -63,6 +45,24 @@ const projects: Project[] = [
       'Um portal digital completo e personalizado desenvolvido para centralizar e compartilhar conteúdos especializados em Sociologia e Libras. O projeto integra um portfólio profissional de alto nível com um sistema dinâmico de postagens, permitindo que a professora publique e organize seus materiais didáticos de forma totalmente independente através de um painel administrativo intuitivo.',
     technologies: ['React', 'TypeScript', 'HTML5', 'CSS3', 'SQL'],
     websiteURL: 'https://profanafonseca.netlify.app/',
+  },
+  {
+    title: 'Signal Forge',
+    subtitle: 'Jul 2024 — Dez 2024',
+    srcImg: '/project2.png',
+    description:
+      'SignalForge é uma ferramenta web em Python (Streamlit) para análise de sinais e sistemas, com suporte aos domínios do tempo e da frequência. Oferece gráficos interativos, cálculos simbólicos e recursos como transformadas de Laplace, diagramas de Bode, análise de polos/zeros e ferramentas auxiliares.',
+    technologies: ['Python', 'Streamlit', 'JavaScript', 'HTML', 'CSS'],
+    websiteURL: 'https://signalforge.streamlit.app',
+  },
+  {
+    title: 'Analisador Bombas d\'água',
+    subtitle: '2024',
+    srcImg: '/project4.png',
+    description:
+      'Python, interface gráfica (GUI), processamento e extração de dados de imagens, análise numérica de curvas hidráulicas, aplicação de cálculos de engenharia (como interseções e leis de afinidade) e geração automatizada de relatórios em Excel.',
+    technologies: ['Python', 'GUI', 'Data Analysis'],
+    websiteURL: 'https://github.com/skinerbold/Graficos_Bomba_d-agua',
   },
 ]
 
