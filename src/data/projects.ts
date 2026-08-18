@@ -23,7 +23,7 @@ export const projects = [
     links: {
       website: 'https://cruniversitario.vercel.app',
     },
-    featured: true,
+    featured: false,
   },
   {
     slug: 'professor-krambeek',
@@ -117,10 +117,11 @@ export const projects = [
       website: 'https://signalforge.streamlit.app',
     },
     featured: true,
+    featuredOrder: 2,
   },
   {
     slug: 'analisador-bombas',
-    title: "Analisador Bombas d'água",
+    title: "Analisador de Bombas d'água",
     period: {
       start: '2024',
       label: '2024',
@@ -140,6 +141,7 @@ export const projects = [
       github: 'https://github.com/skinerbold/Graficos_Bomba_d-agua',
     },
     featured: true,
+    featuredOrder: 3,
   },
   {
     slug: 'derico-music-truck',
@@ -183,7 +185,8 @@ export const projects = [
     links: {
       website: 'https://larmap.com.br/',
     },
-    featured: false,
+    featured: true,
+    featuredOrder: 1,
   },
 ] satisfies Project[]
 

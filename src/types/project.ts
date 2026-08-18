@@ -35,5 +35,6 @@ export interface Project {
   image: ProjectImage
   links: ProjectLinks
   featured: boolean
+  featuredOrder?: number
   status?: ProjectStatus
 }

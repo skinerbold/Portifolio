@@ -1,0 +1,386 @@
+---
+import { projects } from '../../data/projects'
+import type { Project } from '../../types/project'
+import { assetPath } from '../../utils/assetPath'
+import Container from '../layout/Container.astro'
+import Eyebrow from '../ui/Eyebrow.astro'
+
+const featuredProjects: Project[] = projects
+  .filter((project) => project.featured)
+  .sort((first, second) => (first.featuredOrder ?? Infinity) - (second.featuredOrder ?? Infinity))
+
+if (featuredProjects.length !== 3) {
+  throw new Error('Selected Work requires exactly three featured projects.')
+}
+---
+
+<section class="selected-work" id="projetos" aria-labelledby="selected-work-title">
+  <Container class="selected-work__container">
+    <div class="selected-work__marker grid-12">
+      <Eyebrow><span class="selected-work__index">02</span> / Selected work</Eyebrow>
+      <span class="selected-work__rule" aria-hidden="true"></span>
+    </div>
+
+    <div class="selected-work__heading grid-12">
+      <h2 id="selected-work-title">
+        <span>Projetos</span>
+        <span>selecionados.</span>
+      </h2>
+    </div>
+
+    <div class="selected-work__list">
+      {
+        featuredProjects.map((project, index) => (
+          <article class:list={['project', `project--${project.slug}`]} aria-labelledby={`${project.slug}-title`}>
+            <div class="project__layout grid-12">
+              <div class="project__copy">
+                <p class="project__label mono-label">
+                  <span class="project__number">{String(index + 1).padStart(2, '0')}</span>
+                  <span aria-hidden="true">/</span>
+                  <span>Project</span>
+                </p>
+
+                <h3 id={`${project.slug}-title`}>{project.title}</h3>
+
+                {project.shortDescription && <p class="project__description">{project.shortDescription}</p>}
+
+                {(project.period || project.technologies?.length) && (
+                  <div class="project__metadata" aria-label={`Informações do projeto ${project.title}`}>
+                    {project.period && <span class="mono-label">{project.period.label}</span>}
+                    {project.technologies?.length && (
+                      <span class="mono-label">{project.technologies.join(' / ')}</span>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {
+                project.links.website ? (
+                  <a
+                    class="project__media"
+                    href={project.links.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Visitar projeto ${project.title}`}
+                  >
+                    <img
+                      src={assetPath(project.image.src)}
+                      alt={project.image.alt}
+                      width={project.image.width}
+                      height={project.image.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </a>
+                ) : (
+                  <figure class="project__media">
+                    <img
+                      src={assetPath(project.image.src)}
+                      alt={project.image.alt}
+                      width={project.image.width}
+                      height={project.image.height}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </figure>
+                )
+              }
+
+              <div class="project__links" aria-label={`Links de ${project.title}`}>
+                {
+                  project.links.website && (
+                    <a href={project.links.website} target="_blank" rel="noopener noreferrer">
+                      <span>Visitar projeto</span>
+                      <span class="project__link-arrow" aria-hidden="true">↗</span>
+                    </a>
+                  )
+                }
+                {
+                  project.links.github && (
+                    <a href={project.links.github} target="_blank" rel="noopener noreferrer">
+                      <span>Ver código</span>
+                      <span class="project__link-arrow" aria-hidden="true">↗</span>
+                    </a>
+                  )
+                }
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </Container>
+</section>
+
+<style>
+  .selected-work {
+    background: var(--background);
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: var(--site-header-height);
+  }
+
+  .selected-work :global(.selected-work__container) {
+    padding-block: clamp(5rem, 9vw, 9rem);
+  }
+
+  .selected-work__marker {
+    align-items: center;
+  }
+
+  .selected-work__marker :global(.eyebrow) {
+    grid-column: 1 / span 3;
+  }
+
+  .selected-work__index,
+  .project__number {
+    color: var(--accent);
+  }
+
+  .selected-work__rule {
+    grid-column: 4 / -1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .selected-work__heading {
+    margin-top: clamp(3rem, 7vw, 7rem);
+    margin-bottom: clamp(4.5rem, 9vw, 9rem);
+  }
+
+  h2 {
+    grid-column: 1 / span 7;
+    font-size: clamp(3.15rem, 2.15rem + 3.8vw, 5.2rem);
+    font-weight: 540;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+
+  h2 span {
+    display: block;
+  }
+
+  .selected-work__list {
+    border-top: 1px solid var(--foreground);
+  }
+
+  .project {
+    padding-block: clamp(4.5rem, 9vw, 8.5rem);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .project__layout {
+    align-items: start;
+    row-gap: clamp(1.5rem, 3vw, 3.25rem);
+  }
+
+  .project__copy {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .project__label {
+    display: flex;
+    gap: 0.55rem;
+    align-items: baseline;
+    color: var(--muted);
+  }
+
+  h3 {
+    font-size: clamp(2.35rem, 1.65rem + 2.6vw, 4.3rem);
+    font-weight: 540;
+    letter-spacing: -0.055em;
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+
+  .project__description {
+    max-width: 31rem;
+    font-size: clamp(1.05rem, 0.98rem + 0.32vw, 1.3rem);
+    letter-spacing: -0.018em;
+    line-height: 1.45;
+  }
+
+  .project__metadata {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 34rem;
+    padding-top: var(--space-4);
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+
+  .project__media {
+    display: block;
+    padding: clamp(0.45rem, 0.9vw, 0.9rem);
+    margin: 0;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .project__media img {
+    width: 100%;
+    height: auto;
+    transition: transform 240ms ease;
+  }
+
+  a.project__media:hover img,
+  a.project__media:focus-visible img {
+    transform: scale(1.01);
+  }
+
+  .project__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .project__links a {
+    position: relative;
+    display: inline-flex;
+    gap: var(--space-2);
+    align-items: center;
+    min-height: 2.75rem;
+    color: var(--foreground);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 520;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 220ms ease;
+  }
+
+  .project__links a::after {
+    position: absolute;
+    right: 0;
+    bottom: 0.35rem;
+    left: 0;
+    height: 1px;
+    background: currentColor;
+    content: '';
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 220ms ease;
+  }
+
+  .project__links a:hover,
+  .project__links a:focus-visible {
+    color: var(--accent);
+  }
+
+  .project__links a:hover::after,
+  .project__links a:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .project__link-arrow {
+    transition: transform 220ms ease;
+  }
+
+  .project__links a:hover .project__link-arrow,
+  .project__links a:focus-visible .project__link-arrow {
+    transform: translate(0.15rem, -0.15rem);
+  }
+
+  .project--larmap .project__copy {
+    grid-column: 1 / span 4;
+  }
+
+  .project--larmap .project__media,
+  .project--larmap .project__links {
+    grid-column: 5 / -1;
+  }
+
+  .project--signal-forge .project__media,
+  .project--signal-forge .project__links {
+    grid-column: 1 / span 7;
+  }
+
+  .project--signal-forge .project__copy {
+    grid-column: 9 / -1;
+  }
+
+  .project--analisador-bombas .project__copy {
+    grid-column: 1 / span 7;
+  }
+
+  .project--analisador-bombas .project__media,
+  .project--analisador-bombas .project__links {
+    grid-column: 1 / -1;
+  }
+
+  .project--analisador-bombas .project__media {
+    margin-top: clamp(1rem, 3vw, 3rem);
+  }
+
+  @media (max-width: 64rem) {
+    .project__copy,
+    .project--larmap .project__copy,
+    .project--signal-forge .project__copy,
+    .project--analisador-bombas .project__copy,
+    .project--larmap .project__media,
+    .project--signal-forge .project__media,
+    .project--analisador-bombas .project__media,
+    .project--larmap .project__links,
+    .project--signal-forge .project__links,
+    .project--analisador-bombas .project__links {
+      grid-column: 1 / -1;
+    }
+
+    .project--analisador-bombas .project__media {
+      margin-top: 0;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .selected-work :global(.selected-work__container) {
+      padding-block: clamp(4.5rem, 17vw, 7rem);
+    }
+
+    .selected-work__marker :global(.eyebrow) {
+      grid-column: 1 / span 2;
+    }
+
+    .selected-work__rule {
+      grid-column: 3 / -1;
+    }
+
+    .selected-work__heading {
+      margin-top: clamp(2.75rem, 13vw, 4.5rem);
+      margin-bottom: clamp(4rem, 16vw, 6rem);
+    }
+
+    h2 {
+      grid-column: 1 / -1;
+      font-size: clamp(2.8rem, 12.5vw, 4.15rem);
+    }
+
+    .project {
+      padding-block: clamp(4rem, 16vw, 6rem);
+    }
+
+    .project__layout {
+      row-gap: var(--space-4);
+    }
+
+    h3 {
+      font-size: clamp(2.25rem, 10.6vw, 3.65rem);
+    }
+
+    .project__description {
+      max-width: 34rem;
+      font-size: clamp(1.05rem, 4.7vw, 1.24rem);
+    }
+
+    .project__metadata {
+      padding-top: var(--space-3);
+    }
+
+    .project__media {
+      padding: clamp(0.35rem, 1.8vw, 0.55rem);
+    }
+  }
+</style>

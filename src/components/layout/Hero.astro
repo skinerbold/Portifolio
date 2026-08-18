@@ -73,6 +73,12 @@ import { assetPath } from '../../utils/assetPath'
     align-self: center;
   }
 
+  @media (min-width: 48rem) {
+    .hero__copy {
+      transform: translateY(clamp(-1.15rem, -2vh, -0.75rem));
+    }
+  }
+
   h1 {
     max-width: none;
     font-size: clamp(3.5rem, 4.7vw, 5.35rem);
@@ -150,10 +156,10 @@ import { assetPath } from '../../utils/assetPath'
 
   .hero__portrait::after {
     position: absolute;
-    top: 13%;
-    right: 7%;
+    top: 27%;
+    right: 0.8%;
     width: 0.2rem;
-    height: 31%;
+    height: 22%;
     background: var(--accent);
     content: '';
     z-index: -1;
@@ -295,9 +301,9 @@ import { assetPath } from '../../utils/assetPath'
     }
 
     .hero__portrait::after {
-      top: 11%;
-      right: 9%;
-      height: 29%;
+      top: 27%;
+      right: 0.8%;
+      height: 20%;
     }
 
     .hero__availability {
