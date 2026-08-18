@@ -1,0 +1,22 @@
+---
+import About from '../components/layout/About.astro'
+import Hero from '../components/layout/Hero.astro'
+import SectionPlaceholder from '../components/layout/SectionPlaceholder.astro'
+import Navbar from '../components/navigation/Navbar.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout
+  title="Pedro Mendes — Engenharia, software e tecnologia"
+  description="Portfólio de Pedro Mendes: soluções que conectam engenharia, software e tecnologia."
+>
+  <Navbar />
+
+  <main>
+    <Hero />
+    <About />
+    <SectionPlaceholder id="projetos" index="02" title="Projetos" />
+    <SectionPlaceholder id="stack" index="03" title="Stack" />
+    <SectionPlaceholder id="contato" index="04" title="Contato" />
+  </main>
+</BaseLayout>

@@ -1,0 +1,15 @@
+---
+interface Props {
+  as?: 'p' | 'span'
+}
+
+const { as: Tag = 'p' }: Props = Astro.props
+---
+
+<Tag class="mono-label eyebrow"><slot /></Tag>
+
+<style>
+  .eyebrow {
+    color: var(--muted);
+  }
+</style>

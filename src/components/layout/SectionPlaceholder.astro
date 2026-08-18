@@ -1,0 +1,57 @@
+---
+import Container from './Container.astro'
+import Eyebrow from '../ui/Eyebrow.astro'
+
+interface Props {
+  id: string
+  index: string
+  title: string
+}
+
+const { id, index, title }: Props = Astro.props
+const headingId = `${id}-title`
+---
+
+<section class="section-placeholder" id={id} aria-labelledby={headingId}>
+  <Container class="section-placeholder__inner">
+    <Eyebrow>{index} / Próxima etapa</Eyebrow>
+    <h2 id={headingId}>{title}</h2>
+  </Container>
+</section>
+
+<style>
+  .section-placeholder {
+    display: flex;
+    min-height: clamp(18rem, 34vw, 28rem);
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-placeholder :global(.section-placeholder__inner) {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 2rem);
+    align-items: baseline;
+  }
+
+  .section-placeholder :global(.eyebrow) {
+    grid-column: 1 / span 3;
+  }
+
+  h2 {
+    grid-column: 5 / -1;
+    font-size: clamp(2.25rem, 1.8rem + 2vw, 4rem);
+  }
+
+  @media (max-width: 47.99rem) {
+    .section-placeholder :global(.section-placeholder__inner) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      row-gap: var(--space-4);
+    }
+
+    .section-placeholder :global(.eyebrow),
+    h2 {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

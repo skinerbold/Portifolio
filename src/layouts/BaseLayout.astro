@@ -1,0 +1,46 @@
+---
+import '../styles/global.css'
+import { assetPath } from '../utils/assetPath'
+
+interface Props {
+  title: string
+  description: string
+  canonical?: string | URL
+  openGraph?: {
+    title?: string
+    description?: string
+    image?: string
+    type?: 'website' | 'article'
+  }
+}
+
+const { title, description, canonical, openGraph } = Astro.props
+const canonicalUrl = canonical
+  ? new URL(canonical, Astro.site ?? Astro.url.origin).toString()
+  : undefined
+const openGraphImageUrl = openGraph?.image
+  ? new URL(assetPath(openGraph.image), Astro.site ?? Astro.url.origin).toString()
+  : undefined
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#ECEAE3" />
+    <link rel="icon" type="image/png" href={assetPath('icons/favicon.png')} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    {openGraph && <meta property="og:type" content={openGraph.type ?? 'website'} />}
+    {openGraph && <meta property="og:title" content={openGraph.title ?? title} />}
+    {openGraph && (
+      <meta property="og:description" content={openGraph.description ?? description} />
+    )}
+    {openGraphImageUrl && <meta property="og:image" content={openGraphImageUrl} />}
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

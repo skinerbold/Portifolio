@@ -1,0 +1,282 @@
+---
+import Container from './Container.astro'
+import Eyebrow from '../ui/Eyebrow.astro'
+
+const profileAxes = [
+  {
+    number: '01',
+    title: 'Engineering',
+    description: 'Problemas técnicos, análise e raciocínio de engenharia.',
+  },
+  {
+    number: '02',
+    title: 'Software',
+    description: 'Aplicações, ferramentas e produtos digitais.',
+  },
+  {
+    number: '03',
+    title: 'Automation',
+    description: 'Integração entre sistemas, processos e tecnologia.',
+  },
+  {
+    number: '04',
+    title: 'AI',
+    description: 'Aplicações com inteligência artificial e novas tecnologias.',
+  },
+] as const
+---
+
+<section class="about" id="sobre" aria-labelledby="about-title">
+  <Container class="about__container">
+    <div class="about__marker grid-12">
+      <Eyebrow><span class="about__index">01</span> / Sobre mim</Eyebrow>
+      <span class="about__rule" aria-hidden="true"></span>
+    </div>
+
+    <div class="about__introduction grid-12">
+      <h2 id="about-title">
+        <span>Engenharia</span>
+        <span>encontra</span>
+        <span>software.</span>
+      </h2>
+
+      <div class="about__narrative">
+        <div class="about__copy">
+          <p>
+            Sou estudante de Engenharia Mecânica pela Universidade Federal de Viçosa e
+            desenvolvedor de software.
+          </p>
+          <p>
+            Gosto de transformar problemas técnicos em soluções digitais, trabalhando na
+            interseção entre engenharia, desenvolvimento web, automação e novas tecnologias.
+          </p>
+        </div>
+
+        <section class="education" aria-labelledby="education-title">
+          <p class="mono-label education__label">Education / 01</p>
+          <div class="education__details">
+            <h3 id="education-title">Engenharia Mecânica</h3>
+            <p>Universidade Federal de Viçosa — UFV</p>
+            <p class="mono-label education__location">Viçosa / MG</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <ol class="about__axes" aria-label="Eixos do perfil profissional">
+      {
+        profileAxes.map((axis) => (
+          <li class="axis">
+            <h3 class="mono-label axis__title">
+              <span>{axis.number}</span>
+              <span aria-hidden="true">/</span>
+              <span>{axis.title}</span>
+            </h3>
+            <p>{axis.description}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Container>
+</section>
+
+<style>
+  .about {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about :global(.about__container) {
+    padding-block: clamp(4.5rem, 7vw, 6.5rem);
+  }
+
+  .about__marker {
+    align-items: center;
+    margin-bottom: clamp(2.75rem, 5vw, 4.5rem);
+  }
+
+  .about__marker :global(.eyebrow) {
+    grid-column: 1 / span 3;
+  }
+
+  .about__index {
+    color: var(--accent);
+  }
+
+  .about__rule {
+    grid-column: 4 / -1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .about__introduction {
+    align-items: start;
+  }
+
+  h2 {
+    grid-column: 1 / span 5;
+    font-size: clamp(3rem, 2rem + 3.4vw, 5.15rem);
+    font-weight: 540;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+
+  h2 span {
+    display: block;
+  }
+
+  .about__narrative {
+    grid-column: 7 / -1;
+    max-width: 42rem;
+  }
+
+  .about__copy {
+    display: grid;
+    gap: clamp(1.25rem, 2vw, 2rem);
+    max-width: 39rem;
+  }
+
+  .about__copy p {
+    font-size: clamp(1.15rem, 1.04rem + 0.42vw, 1.48rem);
+    letter-spacing: -0.02em;
+    line-height: 1.45;
+  }
+
+  .education {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.75fr) minmax(0, 1.45fr);
+    gap: clamp(1rem, 2vw, 2rem);
+    margin-top: clamp(2.75rem, 4vw, 3.75rem);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+  }
+
+  .education__label,
+  .education__location {
+    color: var(--muted);
+  }
+
+  .education__details {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .education h3 {
+    font-size: clamp(1.05rem, 0.99rem + 0.25vw, 1.22rem);
+    font-weight: 560;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .education__details > p:not(.education__location) {
+    color: var(--muted);
+    font-size: var(--text-sm);
+    line-height: 1.45;
+  }
+
+  .education__location {
+    margin-top: var(--space-2);
+  }
+
+  .about__axes {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 2rem);
+    margin: clamp(4rem, 6vw, 5.5rem) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .axis {
+    min-width: 0;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--foreground);
+  }
+
+  .axis__title {
+    display: flex;
+    gap: 0.55rem;
+    align-items: baseline;
+    font-weight: 560;
+    letter-spacing: 0.055em;
+  }
+
+  .axis__title span:first-child {
+    color: var(--accent);
+  }
+
+  .axis > p {
+    max-width: 17rem;
+    margin-top: clamp(1.25rem, 2.5vw, 2rem);
+    color: var(--muted);
+    font-size: clamp(0.98rem, 0.93rem + 0.18vw, 1.08rem);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 70rem) {
+    .about__axes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: clamp(3rem, 6vw, 5rem);
+    }
+
+    .axis > p {
+      max-width: 24rem;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .about :global(.about__container) {
+      padding-block: clamp(4.25rem, 15vw, 6rem);
+    }
+
+    .about__marker {
+      margin-bottom: clamp(2.75rem, 12vw, 4.25rem);
+    }
+
+    .about__marker :global(.eyebrow) {
+      grid-column: 1 / span 2;
+    }
+
+    .about__rule {
+      grid-column: 3 / -1;
+    }
+
+    h2 {
+      grid-column: 1 / -1;
+      font-size: clamp(2.75rem, 13vw, 4.3rem);
+    }
+
+    .about__narrative {
+      grid-column: 1 / -1;
+      max-width: 36rem;
+      margin-top: clamp(2.5rem, 12vw, 4.5rem);
+    }
+
+    .about__copy {
+      gap: var(--space-4);
+    }
+
+    .about__copy p {
+      font-size: clamp(1.08rem, 4.8vw, 1.3rem);
+    }
+
+    .education {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+      margin-top: clamp(2.75rem, 12vw, 4rem);
+    }
+
+    .about__axes {
+      grid-template-columns: 1fr;
+      row-gap: clamp(3rem, 13vw, 4.5rem);
+      margin-top: clamp(4.25rem, 16vw, 5.5rem);
+    }
+
+    .axis > p {
+      max-width: 30rem;
+      margin-top: var(--space-4);
+    }
+  }
+</style>

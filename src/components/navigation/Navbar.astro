@@ -1,0 +1,331 @@
+---
+import Container from '../layout/Container.astro'
+import { socialLinks } from '../../data/socialLinks'
+
+const github = socialLinks.find((link) => link.platform === 'github')
+const linkedin = socialLinks.find((link) => link.platform === 'linkedin')
+
+if (!github?.href || !linkedin?.href) {
+  throw new Error('GitHub and LinkedIn links are required by the navigation.')
+}
+
+const navigationItems = [
+  { label: 'Sobre', href: '#sobre' },
+  { label: 'Projetos', href: '#projetos' },
+  { label: 'Stack', href: '#stack' },
+  { label: 'Contato', href: '#contato' },
+]
+---
+
+<header class="site-header" data-site-header>
+  <nav class="site-nav" aria-label="Navegação principal" data-site-nav>
+    <Container class="site-nav__inner">
+      <a class="site-nav__brand" href="#inicio" aria-label="Pedro Mendes — início">
+        Pedro Mendes
+      </a>
+
+      <ul class="site-nav__links" role="list">
+        {
+          navigationItems.map((item) => (
+            <li>
+              <a class="site-nav__link" href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <a
+        class="site-nav__external"
+        href={github.href}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>GitHub</span>
+        <span class="external-arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <button
+        class="menu-toggle mono-label"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Abrir menu de navegação"
+        data-menu-toggle
+      >
+        <span data-menu-label>Menu</span>
+      </button>
+    </Container>
+
+    <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
+      <Container class="mobile-menu__inner">
+        <ol class="mobile-menu__links">
+          {
+            navigationItems.map((item, index) => (
+              <li>
+                <span class="mobile-menu__index mono-label" aria-hidden="true">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ol>
+
+        <div class="mobile-menu__social" aria-label="Links sociais">
+          <a href={github.href} target="_blank" rel="noopener noreferrer">
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
+          <a href={linkedin.href} target="_blank" rel="noopener noreferrer">
+            LinkedIn <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </Container>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const navigation = document.querySelector<HTMLElement>('[data-site-nav]')
+  const toggle = navigation?.querySelector<HTMLButtonElement>('[data-menu-toggle]')
+  const menu = navigation?.querySelector<HTMLElement>('[data-mobile-menu]')
+  const menuLabel = toggle?.querySelector<HTMLElement>('[data-menu-label]')
+
+  const closeMenu = (restoreFocus = false) => {
+    if (!toggle || !menu || !menuLabel) return
+
+    toggle.setAttribute('aria-expanded', 'false')
+    toggle.setAttribute('aria-label', 'Abrir menu de navegação')
+    menuLabel.textContent = 'Menu'
+    menu.hidden = true
+
+    if (restoreFocus) toggle.focus()
+  }
+
+  const openMenu = () => {
+    if (!toggle || !menu || !menuLabel) return
+
+    toggle.setAttribute('aria-expanded', 'true')
+    toggle.setAttribute('aria-label', 'Fechar menu de navegação')
+    menuLabel.textContent = 'Fechar'
+    menu.hidden = false
+    menu.querySelector<HTMLAnchorElement>('a')?.focus()
+  }
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true'
+    if (isOpen) closeMenu()
+    else openMenu()
+  })
+
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => closeMenu())
+  })
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      closeMenu(true)
+    }
+  })
+
+  window.matchMedia('(min-width: 48rem)').addEventListener('change', (event) => {
+    if (event.matches) closeMenu()
+  })
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: var(--site-header-height);
+    background: var(--background);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .site-nav,
+  .site-nav :global(.site-nav__inner) {
+    height: 100%;
+  }
+
+  .site-nav :global(.site-nav__inner) {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 2rem);
+    align-items: center;
+  }
+
+  .site-nav__brand {
+    grid-column: 1 / span 3;
+    width: fit-content;
+    font-size: var(--text-sm);
+    font-weight: 620;
+    letter-spacing: -0.015em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .site-nav__links {
+    display: flex;
+    grid-column: 5 / span 5;
+    gap: clamp(1.25rem, 2.4vw, 2.5rem);
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .site-nav__link,
+  .site-nav__external {
+    position: relative;
+    display: inline-flex;
+    gap: 0.35rem;
+    align-items: center;
+    min-height: 2.75rem;
+    font-size: var(--text-sm);
+    text-decoration: none;
+  }
+
+  .site-nav__link::after,
+  .site-nav__external::after {
+    position: absolute;
+    right: 0;
+    bottom: 0.35rem;
+    left: 0;
+    height: 1px;
+    background: currentColor;
+    content: '';
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 240ms ease;
+  }
+
+  .site-nav__link:hover::after,
+  .site-nav__link:focus-visible::after,
+  .site-nav__external:hover::after,
+  .site-nav__external:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .site-nav__external {
+    grid-column: 11 / -1;
+    justify-self: end;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .external-arrow {
+    transition: transform 240ms ease;
+  }
+
+  .site-nav__external:hover .external-arrow,
+  .site-nav__external:focus-visible .external-arrow {
+    transform: translate(0.15rem, -0.15rem);
+  }
+
+  .menu-toggle,
+  .mobile-menu {
+    display: none;
+  }
+
+  @media (max-width: 47.99rem) {
+    .site-nav :global(.site-nav__inner) {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    .site-nav__brand {
+      font-size: 0.82rem;
+    }
+
+    .site-nav__links,
+    .site-nav__external {
+      display: none;
+    }
+
+    .menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 4.5rem;
+      min-height: 2.75rem;
+      padding: 0.5rem 0;
+      color: var(--foreground);
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      inset: var(--site-header-height) 0 0;
+      display: block;
+      overflow-y: auto;
+      background: var(--background);
+    }
+
+    .mobile-menu[hidden] {
+      display: none;
+    }
+
+    .mobile-menu :global(.mobile-menu__inner) {
+      display: flex;
+      min-height: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-7);
+      padding-block: clamp(3rem, 12vw, 6rem) var(--space-5);
+    }
+
+    .mobile-menu__links {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .mobile-menu__links li {
+      display: grid;
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+      align-items: baseline;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-menu__links li:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .mobile-menu__index {
+      color: var(--muted);
+    }
+
+    .mobile-menu__links a {
+      display: block;
+      padding-block: clamp(1rem, 4vw, 1.4rem);
+      font-size: clamp(1.75rem, 8vw, 2.75rem);
+      font-weight: 520;
+      letter-spacing: -0.045em;
+      line-height: 1;
+      text-decoration: none;
+    }
+
+    .mobile-menu__social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-5);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--border);
+    }
+
+    .mobile-menu__social a {
+      min-height: 2.75rem;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+  }
+</style>
