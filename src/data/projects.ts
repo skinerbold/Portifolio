@@ -145,6 +145,8 @@ export const projects = [
   {
     slug: 'derico-music-truck',
     title: 'Derico Music Truck',
+    shortDescription:
+      'Site imersivo do Derico Music Truck, um caminhão-palco itinerante que leva música, cultura e entretenimento para cidades, empresas e eventos, apresentando a experiência do projeto e suas possibilidades de contratação.',
     image: {
       src: 'images/projects/Derico Music Truck .png',
       alt: 'Captura de tela do projeto Derico Music Truck',
@@ -160,7 +162,8 @@ export const projects = [
   {
     slug: 'conexoes-sociologicas',
     title: 'Conexões Sociológicas',
-    shortDescription: 'Jogo web interativo.',
+    shortDescription:
+      'Jogo web educativo que transforma conteúdos de Sociologia em uma experiência interativa, incorporando vídeos em LIBRAS para apoiar o ensino e tornar o conteúdo acessível a pessoas surdas, em uma jornada pelos autores e conceitos clássicos da área.',
     image: {
       src: 'images/projects/conexoes sociologicas.png',
       alt: 'Captura de tela do jogo web Conexões Sociológicas',

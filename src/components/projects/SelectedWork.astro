@@ -9,13 +9,6 @@ const featuredProjects: Project[] = projects
   .filter((project) => project.featured)
   .sort((first, second) => (first.featuredOrder ?? Infinity) - (second.featuredOrder ?? Infinity))
 
-const mediaVariantBySlug = {
-  larmap: 'project__media--large',
-  'derico-music-truck': 'project__media--wide',
-  'conexoes-sociologicas': 'project__media--wide',
-  'analisador-bombas': 'project__media--technical',
-} as const
-
 if (featuredProjects.length !== 4) {
   throw new Error('Selected Work requires exactly four featured projects.')
 }
@@ -64,7 +57,7 @@ if (featuredProjects.length !== 4) {
               {
                 project.links.website ? (
                   <a
-                    class:list={['project__media', mediaVariantBySlug[project.slug as keyof typeof mediaVariantBySlug]]}
+                    class="project__media"
                     href={project.links.website}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -80,7 +73,7 @@ if (featuredProjects.length !== 4) {
                     />
                   </a>
                 ) : (
-                  <figure class:list={['project__media', mediaVariantBySlug[project.slug as keyof typeof mediaVariantBySlug]]}>
+                  <figure class="project__media">
                     <img
                       src={assetPath(project.image.src)}
                       alt={project.image.alt}
@@ -127,7 +120,7 @@ if (featuredProjects.length !== 4) {
   }
 
   .selected-work :global(.selected-work__container) {
-    padding-block: clamp(5rem, 9vw, 9rem);
+    padding-block: clamp(4.5rem, 8vw, 7.5rem);
   }
 
   .selected-work__marker {
@@ -150,8 +143,8 @@ if (featuredProjects.length !== 4) {
   }
 
   .selected-work__heading {
-    margin-top: clamp(3rem, 7vw, 7rem);
-    margin-bottom: clamp(4.5rem, 9vw, 9rem);
+    margin-top: clamp(2.75rem, 6vw, 5.5rem);
+    margin-bottom: clamp(3.5rem, 7vw, 6rem);
   }
 
   h2 {
@@ -172,13 +165,13 @@ if (featuredProjects.length !== 4) {
   }
 
   .project {
-    padding-block: clamp(4rem, 7vw, 6.5rem);
+    padding-block: clamp(3.25rem, 6vw, 5.5rem);
     border-bottom: 1px solid var(--border);
   }
 
   .project__layout {
     align-items: start;
-    row-gap: clamp(1.5rem, 3vw, 3.25rem);
+    row-gap: clamp(1.25rem, 2.4vw, 2.5rem);
   }
 
   .project__copy {
@@ -218,45 +211,18 @@ if (featuredProjects.length !== 4) {
   }
 
   .project__media {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
-    max-height: min(52vh, 34rem);
-    padding: clamp(0.45rem, 0.9vw, 0.9rem);
     margin: 0;
-    background: var(--surface-soft);
-    border: 1px solid var(--border);
-    overflow: hidden;
+    padding: 0;
+    background: transparent;
+    border: 0;
   }
 
   .project__media img {
     display: block;
     width: 100%;
     height: auto;
-    max-height: min(52vh, 34rem);
-    object-fit: contain;
-    transition: transform 240ms ease;
-  }
-
-  a.project__media:hover img,
-  a.project__media:focus-visible img {
-    transform: scale(1.01);
-  }
-
-  .project__media--large,
-  .project__media--large img {
-    max-height: min(54vh, 34rem);
-  }
-
-  .project__media--wide,
-  .project__media--wide img {
-    max-height: min(48vh, 30rem);
-  }
-
-  .project__media--technical,
-  .project__media--technical img {
-    max-height: min(58vh, 34rem);
+    max-width: none;
   }
 
   .project__links {
@@ -316,45 +282,82 @@ if (featuredProjects.length !== 4) {
 
   .project--larmap .project__copy {
     grid-column: 1 / span 4;
+    grid-row: 1;
   }
 
-  .project--larmap .project__media,
+  .project--larmap .project__media {
+    grid-column: 6 / -1;
+    grid-row: 1 / span 2;
+  }
+
   .project--larmap .project__links {
-    grid-column: 5 / -1;
+    grid-column: 6 / -1;
+    grid-row: 2;
   }
 
-  .project--derico-music-truck .project__media,
-  .project--derico-music-truck .project__links {
+  .project--derico-music-truck .project__media {
     grid-column: 1 / span 7;
+    grid-row: 1 / span 2;
   }
 
   .project--derico-music-truck .project__copy {
     grid-column: 9 / -1;
+    grid-row: 1;
+  }
+
+  .project--derico-music-truck .project__links {
+    grid-column: 9 / -1;
+    grid-row: 2;
   }
 
   .project--conexoes-sociologicas .project__copy {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1rem, 2vw, 2rem);
+    row-gap: clamp(0.9rem, 1.5vw, 1.5rem);
+    grid-row: 1;
+  }
+
+  .project--conexoes-sociologicas .project__label {
+    grid-column: 1 / -1;
+  }
+
+  .project--conexoes-sociologicas h3 {
     grid-column: 1 / span 7;
   }
 
-  .project--conexoes-sociologicas .project__media,
+  .project--conexoes-sociologicas .project__description {
+    grid-column: 8 / -1;
+    align-self: end;
+  }
+
+  .project--conexoes-sociologicas .project__media {
+    grid-column: 1 / span 10;
+    grid-row: 2;
+  }
+
   .project--conexoes-sociologicas .project__links {
-    grid-column: 1 / -1;
+    grid-column: 1 / span 10;
+    grid-row: 3;
   }
 
   .project--analisador-bombas .project__copy {
     grid-column: 1 / span 7;
-  }
-
-  .project--analisador-bombas .project__media,
-  .project--analisador-bombas .project__links {
-    grid-column: 1 / -1;
+    grid-row: 1;
   }
 
   .project--analisador-bombas .project__media {
-    margin-top: clamp(1rem, 3vw, 3rem);
+    grid-column: 1 / span 10;
+    grid-row: 2;
   }
 
-  @media (max-width: 64rem) {
+  .project--analisador-bombas .project__links {
+    grid-column: 1 / span 10;
+    grid-row: 3;
+  }
+
+  @media (max-width: 73.74rem) {
     .project__copy,
     .project--larmap .project__copy,
     .project--derico-music-truck .project__copy,
@@ -371,8 +374,31 @@ if (featuredProjects.length !== 4) {
       grid-column: 1 / -1;
     }
 
-    .project--analisador-bombas .project__media {
-      margin-top: 0;
+    .project__copy,
+    .project__media,
+    .project__links {
+      grid-row: auto;
+    }
+
+    .project--conexoes-sociologicas .project__copy {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+
+    .project--conexoes-sociologicas .project__label {
+      grid-column: 1 / -1;
+    }
+
+    .project--conexoes-sociologicas h3,
+    .project--conexoes-sociologicas .project__description {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 48rem) and (max-width: 73.74rem) {
+    .project__media,
+    .project__links {
+      grid-column: 1 / span 10;
     }
   }
 
@@ -420,13 +446,8 @@ if (featuredProjects.length !== 4) {
       padding-top: var(--space-3);
     }
 
-    .project__media {
-      padding: clamp(0.35rem, 1.8vw, 0.55rem);
-      max-height: none;
-    }
-
-    .project__media img {
-      max-height: none;
+    .project--conexoes-sociologicas .project__copy {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 </style>
