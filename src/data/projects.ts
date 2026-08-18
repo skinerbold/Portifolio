@@ -116,8 +116,7 @@ export const projects = [
     links: {
       website: 'https://signalforge.streamlit.app',
     },
-    featured: true,
-    featuredOrder: 2,
+    featured: false,
   },
   {
     slug: 'analisador-bombas',
@@ -141,7 +140,7 @@ export const projects = [
       github: 'https://github.com/skinerbold/Graficos_Bomba_d-agua',
     },
     featured: true,
-    featuredOrder: 3,
+    featuredOrder: 4,
   },
   {
     slug: 'derico-music-truck',
@@ -155,12 +154,13 @@ export const projects = [
     links: {
       website: 'https://music-truck-derico.vercel.app/',
     },
-    featured: false,
+    featured: true,
+    featuredOrder: 2,
   },
   {
     slug: 'conexoes-sociologicas',
     title: 'Conexões Sociológicas',
-    shortDescription: 'Jogo web.',
+    shortDescription: 'Jogo web interativo.',
     image: {
       src: 'images/projects/conexoes sociologicas.png',
       alt: 'Captura de tela do jogo web Conexões Sociológicas',
@@ -170,12 +170,14 @@ export const projects = [
     links: {
       website: 'https://conexoes-sociologicas.vercel.app/',
     },
-    featured: false,
+    featured: true,
+    featuredOrder: 3,
   },
   {
     slug: 'larmap',
     title: 'Larmap',
-    shortDescription: 'Plataforma imobiliária.',
+    shortDescription:
+      'Plataforma imobiliária que facilita a descoberta de imóveis por meio de busca geográfica e visualização em mapa interativo.',
     image: {
       src: 'images/projects/Larmap.png',
       alt: 'Captura de tela da plataforma imobiliária Larmap',

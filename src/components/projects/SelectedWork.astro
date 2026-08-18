@@ -9,8 +9,15 @@ const featuredProjects: Project[] = projects
   .filter((project) => project.featured)
   .sort((first, second) => (first.featuredOrder ?? Infinity) - (second.featuredOrder ?? Infinity))
 
-if (featuredProjects.length !== 3) {
-  throw new Error('Selected Work requires exactly three featured projects.')
+const mediaVariantBySlug = {
+  larmap: 'project__media--large',
+  'derico-music-truck': 'project__media--wide',
+  'conexoes-sociologicas': 'project__media--wide',
+  'analisador-bombas': 'project__media--technical',
+} as const
+
+if (featuredProjects.length !== 4) {
+  throw new Error('Selected Work requires exactly four featured projects.')
 }
 ---
 
@@ -57,7 +64,7 @@ if (featuredProjects.length !== 3) {
               {
                 project.links.website ? (
                   <a
-                    class="project__media"
+                    class:list={['project__media', mediaVariantBySlug[project.slug as keyof typeof mediaVariantBySlug]]}
                     href={project.links.website}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -73,7 +80,7 @@ if (featuredProjects.length !== 3) {
                     />
                   </a>
                 ) : (
-                  <figure class="project__media">
+                  <figure class:list={['project__media', mediaVariantBySlug[project.slug as keyof typeof mediaVariantBySlug]]}>
                     <img
                       src={assetPath(project.image.src)}
                       alt={project.image.alt}
@@ -165,7 +172,7 @@ if (featuredProjects.length !== 3) {
   }
 
   .project {
-    padding-block: clamp(4.5rem, 9vw, 8.5rem);
+    padding-block: clamp(4rem, 7vw, 6.5rem);
     border-bottom: 1px solid var(--border);
   }
 
@@ -211,7 +218,11 @@ if (featuredProjects.length !== 3) {
   }
 
   .project__media {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-height: min(52vh, 34rem);
     padding: clamp(0.45rem, 0.9vw, 0.9rem);
     margin: 0;
     background: var(--surface-soft);
@@ -220,14 +231,32 @@ if (featuredProjects.length !== 3) {
   }
 
   .project__media img {
+    display: block;
     width: 100%;
     height: auto;
+    max-height: min(52vh, 34rem);
+    object-fit: contain;
     transition: transform 240ms ease;
   }
 
   a.project__media:hover img,
   a.project__media:focus-visible img {
     transform: scale(1.01);
+  }
+
+  .project__media--large,
+  .project__media--large img {
+    max-height: min(54vh, 34rem);
+  }
+
+  .project__media--wide,
+  .project__media--wide img {
+    max-height: min(48vh, 30rem);
+  }
+
+  .project__media--technical,
+  .project__media--technical img {
+    max-height: min(58vh, 34rem);
   }
 
   .project__links {
@@ -294,13 +323,22 @@ if (featuredProjects.length !== 3) {
     grid-column: 5 / -1;
   }
 
-  .project--signal-forge .project__media,
-  .project--signal-forge .project__links {
+  .project--derico-music-truck .project__media,
+  .project--derico-music-truck .project__links {
     grid-column: 1 / span 7;
   }
 
-  .project--signal-forge .project__copy {
+  .project--derico-music-truck .project__copy {
     grid-column: 9 / -1;
+  }
+
+  .project--conexoes-sociologicas .project__copy {
+    grid-column: 1 / span 7;
+  }
+
+  .project--conexoes-sociologicas .project__media,
+  .project--conexoes-sociologicas .project__links {
+    grid-column: 1 / -1;
   }
 
   .project--analisador-bombas .project__copy {
@@ -319,13 +357,16 @@ if (featuredProjects.length !== 3) {
   @media (max-width: 64rem) {
     .project__copy,
     .project--larmap .project__copy,
-    .project--signal-forge .project__copy,
+    .project--derico-music-truck .project__copy,
+    .project--conexoes-sociologicas .project__copy,
     .project--analisador-bombas .project__copy,
     .project--larmap .project__media,
-    .project--signal-forge .project__media,
+    .project--derico-music-truck .project__media,
+    .project--conexoes-sociologicas .project__media,
     .project--analisador-bombas .project__media,
     .project--larmap .project__links,
-    .project--signal-forge .project__links,
+    .project--derico-music-truck .project__links,
+    .project--conexoes-sociologicas .project__links,
     .project--analisador-bombas .project__links {
       grid-column: 1 / -1;
     }
@@ -359,7 +400,7 @@ if (featuredProjects.length !== 3) {
     }
 
     .project {
-      padding-block: clamp(4rem, 16vw, 6rem);
+      padding-block: clamp(3.75rem, 14vw, 5.25rem);
     }
 
     .project__layout {
@@ -381,6 +422,11 @@ if (featuredProjects.length !== 3) {
 
     .project__media {
       padding: clamp(0.35rem, 1.8vw, 0.55rem);
+      max-height: none;
+    }
+
+    .project__media img {
+      max-height: none;
     }
   }
 </style>
