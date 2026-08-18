@@ -52,6 +52,25 @@ if (featuredProjects.length !== 4) {
                     )}
                   </div>
                 )}
+
+                <div class="project__links" aria-label={`Links de ${project.title}`}>
+                  {
+                    project.links.website && (
+                      <a href={project.links.website} target="_blank" rel="noopener noreferrer">
+                        <span>Visitar projeto</span>
+                        <span class="project__link-arrow" aria-hidden="true">↗</span>
+                      </a>
+                    )
+                  }
+                  {
+                    project.links.github && (
+                      <a href={project.links.github} target="_blank" rel="noopener noreferrer">
+                        <span>Ver código</span>
+                        <span class="project__link-arrow" aria-hidden="true">↗</span>
+                      </a>
+                    )
+                  }
+                </div>
               </div>
 
               {
@@ -86,24 +105,6 @@ if (featuredProjects.length !== 4) {
                 )
               }
 
-              <div class="project__links" aria-label={`Links de ${project.title}`}>
-                {
-                  project.links.website && (
-                    <a href={project.links.website} target="_blank" rel="noopener noreferrer">
-                      <span>Visitar projeto</span>
-                      <span class="project__link-arrow" aria-hidden="true">↗</span>
-                    </a>
-                  )
-                }
-                {
-                  project.links.github && (
-                    <a href={project.links.github} target="_blank" rel="noopener noreferrer">
-                      <span>Ver código</span>
-                      <span class="project__link-arrow" aria-hidden="true">↗</span>
-                    </a>
-                  )
-                }
-              </div>
             </div>
           </article>
         ))
@@ -171,7 +172,7 @@ if (featuredProjects.length !== 4) {
 
   .project__layout {
     align-items: start;
-    row-gap: clamp(1.25rem, 2.4vw, 2.5rem);
+    row-gap: clamp(1.25rem, 2vw, 2rem);
   }
 
   .project__copy {
@@ -212,6 +213,7 @@ if (featuredProjects.length !== 4) {
 
   .project__media {
     width: 100%;
+    max-width: 46rem;
     margin: 0;
     padding: 0;
     background: transparent;
@@ -287,17 +289,12 @@ if (featuredProjects.length !== 4) {
 
   .project--larmap .project__media {
     grid-column: 6 / -1;
-    grid-row: 1 / span 2;
-  }
-
-  .project--larmap .project__links {
-    grid-column: 6 / -1;
-    grid-row: 2;
+    grid-row: 1;
   }
 
   .project--derico-music-truck .project__media {
     grid-column: 1 / span 7;
-    grid-row: 1 / span 2;
+    grid-row: 1;
   }
 
   .project--derico-music-truck .project__copy {
@@ -305,59 +302,27 @@ if (featuredProjects.length !== 4) {
     grid-row: 1;
   }
 
-  .project--derico-music-truck .project__links {
-    grid-column: 9 / -1;
-    grid-row: 2;
-  }
-
   .project--conexoes-sociologicas .project__copy {
-    display: grid;
-    grid-column: 1 / -1;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: clamp(1rem, 2vw, 2rem);
-    row-gap: clamp(0.9rem, 1.5vw, 1.5rem);
+    grid-column: 1 / span 4;
     grid-row: 1;
   }
 
-  .project--conexoes-sociologicas .project__label {
-    grid-column: 1 / -1;
-  }
-
-  .project--conexoes-sociologicas h3 {
-    grid-column: 1 / span 7;
-  }
-
-  .project--conexoes-sociologicas .project__description {
-    grid-column: 8 / -1;
-    align-self: end;
-  }
-
   .project--conexoes-sociologicas .project__media {
-    grid-column: 1 / span 10;
-    grid-row: 2;
-  }
-
-  .project--conexoes-sociologicas .project__links {
-    grid-column: 1 / span 10;
-    grid-row: 3;
+    grid-column: 6 / -1;
+    grid-row: 1;
   }
 
   .project--analisador-bombas .project__copy {
-    grid-column: 1 / span 7;
+    grid-column: 9 / -1;
     grid-row: 1;
   }
 
   .project--analisador-bombas .project__media {
-    grid-column: 1 / span 10;
-    grid-row: 2;
+    grid-column: 1 / span 7;
+    grid-row: 1;
   }
 
-  .project--analisador-bombas .project__links {
-    grid-column: 1 / span 10;
-    grid-row: 3;
-  }
-
-  @media (max-width: 73.74rem) {
+  @media (max-width: 74.99rem) {
     .project__copy,
     .project--larmap .project__copy,
     .project--derico-music-truck .project__copy,
@@ -366,39 +331,17 @@ if (featuredProjects.length !== 4) {
     .project--larmap .project__media,
     .project--derico-music-truck .project__media,
     .project--conexoes-sociologicas .project__media,
-    .project--analisador-bombas .project__media,
-    .project--larmap .project__links,
-    .project--derico-music-truck .project__links,
-    .project--conexoes-sociologicas .project__links,
-    .project--analisador-bombas .project__links {
+    .project--analisador-bombas .project__media {
       grid-column: 1 / -1;
     }
 
-    .project__copy,
     .project__media,
-    .project__links {
+    .project--larmap .project__media,
+    .project--derico-music-truck .project__media,
+    .project--conexoes-sociologicas .project__media,
+    .project--analisador-bombas .project__media {
       grid-row: auto;
-    }
-
-    .project--conexoes-sociologicas .project__copy {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-    }
-
-    .project--conexoes-sociologicas .project__label {
-      grid-column: 1 / -1;
-    }
-
-    .project--conexoes-sociologicas h3,
-    .project--conexoes-sociologicas .project__description {
-      grid-column: 1 / -1;
-    }
-  }
-
-  @media (min-width: 48rem) and (max-width: 73.74rem) {
-    .project__media,
-    .project__links {
-      grid-column: 1 / span 10;
+      max-width: none;
     }
   }
 
@@ -446,8 +389,5 @@ if (featuredProjects.length !== 4) {
       padding-top: var(--space-3);
     }
 
-    .project--conexoes-sociologicas .project__copy {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
   }
 </style>
