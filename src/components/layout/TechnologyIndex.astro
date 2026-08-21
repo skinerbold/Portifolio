@@ -1,0 +1,204 @@
+---
+import { skillGroups } from '../../data/skills'
+import Container from './Container.astro'
+import Eyebrow from '../ui/Eyebrow.astro'
+
+const visibleGroups = skillGroups.filter((group) => group.skills.length > 0)
+---
+
+<section class="technology-index" id="stack" aria-labelledby="technology-index-title">
+  <Container class="technology-index__container">
+    <div class="technology-index__marker grid-12">
+      <Eyebrow><span class="technology-index__section-number">04</span> / Technology index</Eyebrow>
+      <span class="technology-index__rule" aria-hidden="true"></span>
+    </div>
+
+    <div class="technology-index__intro grid-12">
+      <h2 id="technology-index-title">
+        <span>Tecnologias</span>
+        <span>&amp; ferramentas.</span>
+      </h2>
+      <p>
+        Ferramentas e tecnologias que utilizo para transformar ideias, problemas técnicos e produtos digitais em
+        soluções funcionais.
+      </p>
+    </div>
+
+    <ol class="technology-index__groups" aria-label="Categorias de tecnologias">
+      {
+        visibleGroups.map((group, index) => (
+          <li class="technology-group">
+            <h3>
+              <span class="technology-group__number">{String(index + 1).padStart(2, '0')}</span>
+              <span aria-hidden="true">/</span>
+              <span>{group.label}</span>
+            </h3>
+            <ul>
+              {group.skills.map((skill) => <li>{skill}</li>)}
+            </ul>
+          </li>
+        ))
+      }
+    </ol>
+  </Container>
+</section>
+
+<style>
+  .technology-index {
+    background: var(--background);
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: var(--site-header-height);
+  }
+
+  .technology-index :global(.technology-index__container) {
+    padding-block: clamp(4.5rem, 8vw, 7.5rem);
+  }
+
+  .technology-index__marker {
+    align-items: center;
+  }
+
+  .technology-index__marker :global(.eyebrow) {
+    grid-column: 1 / span 3;
+  }
+
+  .technology-index__section-number,
+  .technology-group__number {
+    color: var(--accent);
+  }
+
+  .technology-index__rule {
+    grid-column: 4 / -1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .technology-index__intro {
+    margin-block: clamp(2.75rem, 6vw, 5.5rem) clamp(3.5rem, 7vw, 5.5rem);
+    align-items: end;
+  }
+
+  h2 {
+    grid-column: 1 / span 6;
+    font-size: clamp(3rem, 2.05rem + 3.45vw, 4.85rem);
+    font-weight: 540;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+
+  h2 span {
+    display: block;
+  }
+
+  .technology-index__intro > p {
+    grid-column: 8 / -1;
+    max-width: 32rem;
+    font-size: clamp(1.05rem, 0.98rem + 0.32vw, 1.3rem);
+    letter-spacing: -0.018em;
+    line-height: 1.45;
+  }
+
+  .technology-index__groups {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 clamp(2rem, 5vw, 6rem);
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--foreground);
+    list-style: none;
+  }
+
+  .technology-group {
+    min-width: 0;
+    padding-block: clamp(1.5rem, 2.4vw, 2.25rem) clamp(2rem, 3vw, 3rem);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .technology-group h3 {
+    display: flex;
+    gap: 0.55rem;
+    align-items: baseline;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 520;
+    letter-spacing: 0.08em;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  .technology-group ul {
+    display: grid;
+    gap: 0.45rem;
+    margin: clamp(1.25rem, 2vw, 1.75rem) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .technology-group li li {
+    font-size: clamp(1.22rem, 1.05rem + 0.52vw, 1.65rem);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    transition: color 180ms ease, transform 180ms ease;
+  }
+
+  .technology-group li li:hover {
+    color: var(--accent);
+    transform: translateX(0.12rem);
+  }
+
+  @media (max-width: 56.25rem) {
+    .technology-index__intro > p {
+      grid-column: 7 / -1;
+    }
+
+    .technology-index__groups {
+      gap: 0 clamp(1.5rem, 3vw, 3rem);
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .technology-index :global(.technology-index__container) {
+      padding-block: clamp(4.5rem, 17vw, 7rem);
+    }
+
+    .technology-index__marker :global(.eyebrow) {
+      grid-column: 1 / span 2;
+    }
+
+    .technology-index__rule {
+      grid-column: 3 / -1;
+    }
+
+    .technology-index__intro {
+      margin-block: clamp(2.75rem, 13vw, 4.5rem) clamp(3rem, 12vw, 5rem);
+      align-items: start;
+    }
+
+    h2,
+    .technology-index__intro > p {
+      grid-column: 1 / -1;
+    }
+
+    .technology-index__intro > p {
+      margin-top: var(--space-5);
+      max-width: 34rem;
+    }
+
+    .technology-index__groups {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .technology-group {
+      padding-block: clamp(1.5rem, 6vw, 2.5rem) clamp(2rem, 8vw, 3.5rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .technology-group li li {
+      transition: none;
+    }
+  }
+</style>

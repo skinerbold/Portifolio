@@ -24,6 +24,7 @@ export const projects = [
       website: 'https://cruniversitario.vercel.app',
     },
     featured: false,
+    moreWorkOrder: 5,
   },
   {
     slug: 'professor-krambeek',
@@ -47,6 +48,7 @@ export const projects = [
       website: 'https://krambeck.netlify.app',
     },
     featured: false,
+    moreWorkOrder: 7,
   },
   {
     slug: 'plataforma-educacional',
@@ -70,6 +72,7 @@ export const projects = [
       website: 'https://pedromendes.github.io/ironhack-project1-craze-maze/index.html',
     },
     featured: false,
+    moreWorkOrder: 9,
   },
   {
     slug: 'portal-ana-fonseca',
@@ -93,6 +96,7 @@ export const projects = [
       website: 'https://profanafonseca.netlify.app/',
     },
     featured: false,
+    moreWorkOrder: 8,
   },
   {
     slug: 'signal-forge',
@@ -117,6 +121,7 @@ export const projects = [
       website: 'https://signalforge.streamlit.app',
     },
     featured: false,
+    moreWorkOrder: 6,
   },
   {
     slug: 'analisador-bombas',

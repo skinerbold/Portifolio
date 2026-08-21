@@ -2,7 +2,9 @@
 import About from '../components/layout/About.astro'
 import Hero from '../components/layout/Hero.astro'
 import SelectedWork from '../components/projects/SelectedWork.astro'
-import SectionPlaceholder from '../components/layout/SectionPlaceholder.astro'
+import MoreWork from '../components/projects/MoreWork.astro'
+import TechnologyIndex from '../components/layout/TechnologyIndex.astro'
+import Contact from '../components/layout/Contact.astro'
 import Navbar from '../components/navigation/Navbar.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 ---
@@ -17,7 +19,8 @@ import BaseLayout from '../layouts/BaseLayout.astro'
     <Hero />
     <About />
     <SelectedWork />
-    <SectionPlaceholder id="stack" index="03" title="Stack" />
-    <SectionPlaceholder id="contato" index="04" title="Contato" />
+    <MoreWork />
+    <TechnologyIndex />
+    <Contact />
   </main>
 </BaseLayout>

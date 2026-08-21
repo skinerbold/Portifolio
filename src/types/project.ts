@@ -36,5 +36,7 @@ export interface Project {
   links: ProjectLinks
   featured: boolean
   featuredOrder?: number
+  /** Stable sequence for projects rendered in the compact More Work list. */
+  moreWorkOrder?: number
   status?: ProjectStatus
 }
